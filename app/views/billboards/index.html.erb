@@ -1,6 +1,7 @@
 <h1>Welcome to the Billboard Voting App</h1>
 <br>
 <br>
+<%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
 
 <table class="table">
   <thead>
@@ -20,7 +21,7 @@
     <% @billboards.each do |billboard| %>
       <tr>
         <td><%= billboard.name %></td>
-        <td><%= billboard.image %></td>
+        <td><img class="img-thumbnail" src="<%= billboard.image %>"/></td>
         <td><%= billboard.lat %></td>
         <td><%= billboard.lon %></td>
         <td><%= billboard.size %></td>
@@ -34,4 +35,4 @@
 </table>
 
 
-<%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
+

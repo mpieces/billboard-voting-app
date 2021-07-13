@@ -3,4 +3,8 @@ Rails.application.routes.draw do
   root "billboards#index"
   
   get "/index", to: "billboards#index"
+
+  resources :billboards do 
+    collection { post :import }
+  end
 end
