@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   get "/index", to: "billboards#index"
 
   resources :billboards do 
-    collection { post :import }
+    member do 
+      post 'upvote'
+    end
+    # collection { post :import }
   end
 end

@@ -6,6 +6,8 @@
 <table class="table">
   <thead>
     <tr>
+      <th scope="col"></th>
+      <th scope="col">Score</th>
       <th scope="col">Name</th>
       <th scope="col">Image</th>
       <th scope="col">Lat</th>
@@ -20,6 +22,8 @@
   <tbody>
     <% @billboards.each do |billboard| %>
       <tr>
+        <td><%= button_to '+1', upvote_billboard_path(billboard), method: :post %></td>
+        <td><%= pluralize(billboard.votes.count, "vote") %></td>
         <td><%= billboard.name %></td>
         <td><img class="img-thumbnail" src="<%= billboard.image %>"/></td>
         <td><%= billboard.lat %></td>

@@ -1,5 +1,6 @@
 class Billboard < ApplicationRecord
   require 'csv'
+  has_many :votes, dependent: :destroy
 
   def self.import(file)
     CSV.foreach('public/billboards.csv', headers: true) do |row|
@@ -7,7 +8,6 @@ class Billboard < ApplicationRecord
       billboard = find_or_create_by!(name: billboard_hash['name'])
       billboard.update_attributes(billboard_hash)
     end
-      
 
   end
 
