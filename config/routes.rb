@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  root "welcome#index"
+  root "billboards#index"
   
-  get "/index", to: "welcome#index"
+  get "/index", to: "billboards#index"
 end

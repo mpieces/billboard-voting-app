@@ -10,7 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_12_230833) do
+ActiveRecord::Schema.define(version: 2021_07_13_000300) do
+
+  create_table "billboards", force: :cascade do |t|
+    t.string "name"
+    t.string "image"
+    t.float "lat"
+    t.float "lon"
+    t.text "size"
+    t.string "screen_type"
+    t.string "direction"
+    t.string "orientation"
+    t.string "unit_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false

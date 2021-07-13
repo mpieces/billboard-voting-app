@@ -1,0 +1,37 @@
+<h1>Welcome to the Billboard Voting App</h1>
+<br>
+<br>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Image</th>
+      <th scope="col">Lat</th>
+      <th scope="col">Lon</th>
+      <th scope="col">Size</th>
+      <th scope="col">Screen Type</th>
+      <th scope="col">Direction</th>
+      <th scope="col">Orientation</th>
+      <th scope="col">Unit Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @billboards.each do |billboard| %>
+      <tr>
+        <td><%= billboard.name %></td>
+        <td><%= billboard.image %></td>
+        <td><%= billboard.lat %></td>
+        <td><%= billboard.lon %></td>
+        <td><%= billboard.size %></td>
+        <td><%= billboard.screen_type %></td>
+        <td><%= billboard.direction %></td>
+        <td><%= billboard.orientation %></td>
+        <td><%= billboard.unit_type %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
