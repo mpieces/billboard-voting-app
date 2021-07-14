@@ -3,7 +3,7 @@ class BillboardsController < ApplicationController
 
   def index
     # @billboards = Billboard.all
-    @billboards = Billboard.order(score: :desc)
+    @billboards = Billboard.order("votes_count DESC")
   end
 
   def import 
