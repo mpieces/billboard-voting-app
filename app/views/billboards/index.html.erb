@@ -1,13 +1,14 @@
 <h1>Welcome to the Billboard Voting App</h1>
 <br>
 <br>
-<%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
+
+<div id="results"></div>
 
 <table class="table">
   <thead>
     <tr>
       <th scope="col"></th>
-      <th scope="col">Vote Count</th>
+      <th scope="col">Vote Total</th>
       <th scope="col">Name</th>
       <th scope="col">Image</th>
       <th scope="col">Lat</th>
@@ -22,10 +23,9 @@
   <tbody>
     <% @billboards.each do |billboard| %>
       <tr>
-        # <td><%= upvote_or_downvote_btn(billboard) %></td>
-        <td>'Temp Data'</td>
+        <td><%= upvote_or_downvote_btn(billboard) %></td>
         <td><%= pluralize(billboard.votes.count, "vote") %></td>
-        <td><%= billboard.name %></td>
+        <td><%= link_to billboard.name, billboard_path(billboard), remote: true %></td>
         <td><img class="img-thumbnail" src="<%= billboard.image %>"/></td>
         <td><%= billboard.lat %></td>
         <td><%= billboard.lon %></td>
@@ -38,6 +38,8 @@
     <% end %>
   </tbody>
 </table>
+
+
 
 
 

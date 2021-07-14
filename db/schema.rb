@@ -24,8 +24,7 @@ ActiveRecord::Schema.define(version: 2021_07_13_233614) do
     t.string "unit_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "score"
-    t.integer "votes_count", default: 1
+    t.integer "votes_count", default: 0, null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -42,6 +41,7 @@ ActiveRecord::Schema.define(version: 2021_07_13_233614) do
 
   create_table "votes", force: :cascade do |t|
     t.integer "billboard_id"
+    t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
