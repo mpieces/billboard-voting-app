@@ -5,12 +5,12 @@ Rails.application.routes.draw do
 
   root "billboards#index"
   
+# post /bilboards/1/vote
+
   resources :billboards do 
-    resources :votes
     # collection { post :import }
-    # member do 
-    #   post 'upvote'
-    # end
-  
+    member do 
+      post 'vote'
+    end
   end
 end

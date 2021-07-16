@@ -23,9 +23,12 @@
   <tbody>
     <% @billboards.each do |billboard| %>
       <tr>
+        <td>
+        <button class="voter upvote_button" data-direction="up" data-id="<%= billboard.id %>">Upvote</button>
+        <button class="voter downvote_button" data-direction="down" data-id="<%= billboard.id %>">Downvote</button>
         <td><%= upvote_or_downvote_btn(billboard) %></td>
         <td><%= pluralize(billboard.votes.count, "vote") %></td>
-        <td><%= link_to billboard.name, billboard_path(billboard), remote: true %></td>
+        <td><%= link_to billboard.name, billboard_path(billboard) %></td>
         <td><img class="img-thumbnail" src="<%= billboard.image %>"/></td>
         <td><%= billboard.lat %></td>
         <td><%= billboard.lon %></td>
@@ -38,6 +41,20 @@
     <% end %>
   </tbody>
 </table>
+
+<script type="text/javascript">
+   $(".voter").forEach(function(element) {
+      onClick(function() {
+       $.ajax({
+          url: '/billboard/' + $(element).data('id') + '/vote',
+          data: {
+            vote_direction: $(element).data('direction')
+          }
+          method: 'post'
+       })
+    })
+   )
+</script>
 
 
 
