@@ -5,17 +5,9 @@ class VotesController < ApplicationController
   def create
     @vote = current_user.votes.new(billboard_id: params[:billboard_id])
     if @vote.save
-      # binding.pry
-    # if @vote
-    #   respond_to do |format|
-    #     format.js { render partial: 'votes/create' }
-    #     format.html { render html: '<p>hello from create method</p>'.html_safe }
-    #   end
-    # end
- 
-      redirect_to root_path, notice: 'Vote added.'
+      flash[:notice] =  'Vote added.'
     else
-      redirect_to root_path, alert: 'You cannot vote twice.'
+      flash[:alert] = 'You cannot vote twice.'
     end
   end
 

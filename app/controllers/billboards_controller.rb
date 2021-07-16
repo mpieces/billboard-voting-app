@@ -15,14 +15,14 @@ class BillboardsController < ApplicationController
   def vote
     @billboard = Billboard.find(params[:id])
     direction = params[:vote_direction]
-    vote = Votes.find_or_initialize_by(billboard: @billboard, user: current_user)
+    vote = Vote.find_or_initialize_by(billboard: @billboard, user: current_user)
     if direction == "up"
       vote.upvote = true
     else
       vote.upvote = false
     end
     vote.save!
-    redirect_to root_url 
+    # redirect_to root_url 
   end
 
   def show
@@ -34,9 +34,9 @@ class BillboardsController < ApplicationController
 
 end
 
-request:
-  billboard_id: 
-  vote_direction: (upvote true or false)
+# request:
+#   billboard_id: 
+#   vote_direction: (upvote true or false)
 
   # find a vote if it exists and update it
   # create a new vote with this data
