@@ -8,7 +8,7 @@
   <thead>
     <tr>
       <th scope="col"></th>
-      <th scope="col">Vote Total</th>
+      <th scope="col">Vote Score</th>
       <th scope="col">Name</th>
       <th scope="col">Image</th>
       <th scope="col">Lat</th>
@@ -27,8 +27,8 @@
           <button class="voter upvote_button" data-direction="up" data-id="<%= billboard.id %>"><i class="fa fa-thumbs-up"></i></button>
           <button class="voter downvote_button" data-direction="down" data-id="<%= billboard.id %>"><i class="fa fa-thumbs-down"></i></button>
         </td>
-        <td class="total_votes"><%= billboard.votes.count %></td>
-        <td><%= link_to billboard.name, billboard_path(billboard) %></td>
+        <td class="total_votes"><%= billboard.vote_score %></td>
+        <td><%= link_to billboard.name, billboard_path(billboard), remote: true %></td>
         <td><img class="img-thumbnail" src="<%= billboard.image %>"/></td>
         <td><%= billboard.lat %></td>
         <td><%= billboard.lon %></td>
@@ -49,24 +49,14 @@
     var id = $(this).data('id');
     var direction = $(this).data('direction')
     var $total = $(this).parent().siblings(".total_votes")
-    console.log(id)
+    console.log("BB ID: " + id)
        $.ajax({
           type: 'POST',
           url: '/billboards/' + id + '/vote',
           data: { direction: direction },
           success: function (response) {
-            
-            /*
-            var count = parseInt($total.text());
-            console.log(count);
-            if (direction === "up") {
-              count += 1
-
-            } else {
-              count -= 1
-            }
-            */     
-            $total.text(response.vote_score)           
+            $total.text(response.vote_score)   
+            console.log("Vote Score : " + response.vote_score);        
           }
        })
     })

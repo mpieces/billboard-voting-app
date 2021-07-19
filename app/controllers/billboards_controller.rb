@@ -24,10 +24,12 @@ class BillboardsController < ApplicationController
       raise "Invalid vote direction"
     end
     if vote.save
-      render json: { status: 200, vote_score: 5 }  # @billboard.vote_score }
-    else 
-      render json: { status: 400, error: vote.errors.full_messages.join(", ") }
-    end
+      render json: { status: 200, vote_score: @billboard.vote_score, direction: direction }  
+      # @billboard.votes_score value is showing up correctly in console under Network --> Response
+      # can I add a flash message here?
+      else 
+        render json: { status: 400, error: vote.errors.full_messages.join(", ") }
+      end
   end
 
   def show
@@ -39,7 +41,7 @@ class BillboardsController < ApplicationController
 
 end
 
-# request:
+# requesting:
 #   billboard_id: 
 #   vote_direction: (upvote true or false)
 
