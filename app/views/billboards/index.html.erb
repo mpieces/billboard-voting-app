@@ -27,7 +27,7 @@
           <button class="voter upvote_button" data-direction="up" data-id="<%= billboard.id %>"><i class="fa fa-thumbs-up"></i></button>
           <button class="voter downvote_button" data-direction="down" data-id="<%= billboard.id %>"><i class="fa fa-thumbs-down"></i></button>
         </td>
-        <td id="total_votes"><%= billboard.votes.count %></td>
+        <td class="total_votes"><%= billboard.votes.count %></td>
         <td><%= link_to billboard.name, billboard_path(billboard) %></td>
         <td><img class="img-thumbnail" src="<%= billboard.image %>"/></td>
         <td><%= billboard.lat %></td>
@@ -46,21 +46,27 @@
 <script type="text/javascript">
  
   $('button.voter').click(function () {
-    console.log($(this).data('id'))
     var id = $(this).data('id');
+    var direction = $(this).data('direction')
+    var $total = $(this).parent().siblings(".total_votes")
+    console.log(id)
        $.ajax({
           type: 'POST',
           url: '/billboards/' + id + '/vote',
-          data: $(this).data('direction'),
-          success: function () {
-            console.log(this.data);
-            var x = parseInt($('#total_votes').text());
-            console.log(x);
-            if (this.data == "up") {
-              $('#total_votes').text(x+=1)
+          data: { direction: direction },
+          success: function (response) {
+            
+            /*
+            var count = parseInt($total.text());
+            console.log(count);
+            if (direction === "up") {
+              count += 1
+
             } else {
-              $('#total_votes').text(x-=1)
-            }                      
+              count -= 1
+            }
+            */     
+            $total.text(response.vote_score)           
           }
        })
     })

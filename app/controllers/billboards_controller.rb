@@ -2,8 +2,8 @@ class BillboardsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    # @billboards = Billboard.all.sort_by{|billboard| billboard.calculate_rank(2,2,1.8)}
-    # @billboards = Billboard.all.sort_by(&:calculate_rank)
+    # @billboards = Billboard.all.sort_by{ |billboard| -1 * billboard.calculate_rank(2,2,1.8) }
+    # @billboards = Billboard.all.sort_by(&:calculate_rank).reverse
     @billboards = Billboard.order('votes_count DESC') 
   end
 
@@ -14,15 +14,20 @@ class BillboardsController < ApplicationController
 
   def vote
     @billboard = Billboard.find(params[:id])
-    direction = params[:vote_direction]
+    direction = params[:direction]
     vote = Vote.find_or_initialize_by(billboard: @billboard, user: current_user)
     if direction == "up"
       vote.upvote = true
-    else
+    elsif direction == "down"
       vote.upvote = false
+    else
+      raise "Invalid vote direction"
     end
-    vote.save!
-    # redirect_to root_url 
+    if vote.save
+      render json: { status: 200, vote_score: 5 }  # @billboard.vote_score }
+    else 
+      render json: { status: 400, error: vote.errors.full_messages.join(", ") }
+    end
   end
 
   def show

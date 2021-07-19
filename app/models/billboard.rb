@@ -1,5 +1,3 @@
-require 'pry'
-
 class Billboard < ApplicationRecord
   require 'csv'
   has_many :votes
@@ -13,17 +11,20 @@ class Billboard < ApplicationRecord
   def self.import(file)
     CSV.foreach('public/billboards.csv', headers: true) do |row|
       billboard_hash = row.to_hash
-      billboard = find_or_create_by!(name: billboard_hash['name'])
-      billboard.update_attributes(billboard_hash)
+      billboard = find_or_initialize_by!(name: billboard_hash['name'])
+      billboard.update!(billboard_hash)
     end
   end
 
+  def vote_score
+       # 3 upvotes and 2 downvotes, 3 + (-2) = 1
+  end
+
   # rank bb's according to time-decay algorithm
-  def calculate_rank(votes, item_hour_age, gravity=1.8)
-    # billboard = Billboard.find_by(id: billboard_id)
-    item_hour_age = (Time.now - billboard.created_at)/3600 
+  def calculate_rank(gravity=1.8)
+    item_hour_age = (Time.now - created_at) / 3600 
     binding.pry
-    return (votes - 1) / (item_hour_age+2)**gravity
+    return (vote_score - 1) / (item_hour_age+2) ** gravity
   end
 
 end
