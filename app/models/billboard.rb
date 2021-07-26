@@ -3,9 +3,9 @@ class Billboard < ApplicationRecord
   has_many :votes
 
   # returns all 30 billboards
-  scope :highest_vote, -> do
-     order(votes_count: :desc) 
-  end
+  # scope :highest_vote, -> do
+  #    order(votes_count: :desc) 
+  # end
 
 
   def self.import(file)
@@ -18,15 +18,14 @@ class Billboard < ApplicationRecord
 
   def vote_score
        # 3 upvotes and 2 downvotes, 3 + (-2) = 1
-       upvotes = Vote.where(upvote: true).count
-       downvotes = Vote.where(upvote: false).count
-       return upvotes - downvotes 
+       upvotes = votes.where(upvote: true).count
+       downvotes = votes.where(upvote: false).count
+       return upvotes + (-1 * downvotes)
   end
 
   # rank bb's according to time-decay algorithm
   def calculate_rank(gravity=1.8)
     item_hour_age = (Time.now - created_at) / 3600 
-    # binding.pry
     return (vote_score - 1) / (item_hour_age+2) ** gravity
   end
 

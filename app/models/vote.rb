@@ -1,9 +1,7 @@
 class Vote < ApplicationRecord
   belongs_to :user
-  belongs_to :billboard, counter_cache: true
+  belongs_to :billboard
   
-  validates :user_id, uniqueness: { scope: :billboard_id }
-  # validates :user, uniqueness: { scope: :billboard }
-  # validates :billboard, uniqueness: { scope: :user }
+  validates :user_id, uniqueness: { scope: :billboard_id, message: 'You can only vote once!' }
 
 end

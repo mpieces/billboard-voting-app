@@ -1,5 +1,5 @@
 class AddUpvoteToVotes < ActiveRecord::Migration[6.0]
   def change
-    add_column :votes, :upvote, :boolean, index: true
+    add_column :votes, :upvote, :boolean, index: true, null: false
   end
 end

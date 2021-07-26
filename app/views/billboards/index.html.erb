@@ -1,10 +1,11 @@
 <h1>Welcome to the Billboard Voting App</h1>
+<h3>Logged in as : <%= current_user.email %></h3>
 <br>
 <br>
 
 <div id="results"></div>
 
-<table class="table">
+<table class="table table-bordered table-hover">
   <thead>
     <tr>
       <th scope="col"></th>
@@ -46,8 +47,15 @@
 <script type="text/javascript">
  
   $('button.voter').click(function () {
+    $(this).prop('disabled', true);
+    
     var id = $(this).data('id');
     var direction = $(this).data('direction')
+    if (direction === 'up') {
+      $(this).next().prop('disabled', false);   
+    } else {
+      $(this).prev().prop('disabled', false);   
+    }
     var $total = $(this).parent().siblings(".total_votes")
     console.log("BB ID: " + id)
        $.ajax({
@@ -55,8 +63,11 @@
           url: '/billboards/' + id + '/vote',
           data: { direction: direction },
           success: function (response) {
+            // console.log("Total : " + $total.text());
+            // console.log(response);
             $total.text(response.vote_score)   
-            console.log("Vote Score : " + response.vote_score);        
+            console.log("Vote Score : " + response.vote_score);  
+             
           }
        })
     })

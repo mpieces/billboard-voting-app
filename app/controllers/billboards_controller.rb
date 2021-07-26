@@ -3,8 +3,7 @@ class BillboardsController < ApplicationController
 
   def index
     # @billboards = Billboard.all.sort_by{ |billboard| -1 * billboard.calculate_rank(2,2,1.8) }
-    # @billboards = Billboard.all.sort_by(&:calculate_rank).reverse
-    @billboards = Billboard.order('votes_count DESC') 
+    @billboards = Billboard.all.sort_by(&:calculate_rank).reverse
   end
 
   def import 
@@ -15,6 +14,7 @@ class BillboardsController < ApplicationController
   def vote
     @billboard = Billboard.find(params[:id])
     direction = params[:direction]
+    # binding.pry
     vote = Vote.find_or_initialize_by(billboard: @billboard, user: current_user)
     if direction == "up"
       vote.upvote = true
@@ -26,7 +26,6 @@ class BillboardsController < ApplicationController
     if vote.save
       render json: { status: 200, vote_score: @billboard.vote_score, direction: direction }  
       # @billboard.votes_score value is showing up correctly in console under Network --> Response
-      # can I add a flash message here?
       else 
         render json: { status: 400, error: vote.errors.full_messages.join(", ") }
       end
