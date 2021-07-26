@@ -1,1 +1,14 @@
 <h1><%= @billboard.name %></h1>
+
+<p>Image:<%= image_tag(@billboard.image) %></p>
+<p>Lat:<%= @billboard.lat %></p>
+<p>Lon:<%= @billboard.lon %></p>
+<p>Size:<%= @billboard.size %></p>
+<p>Screen Type:<%= @billboard.screen_type %></p>
+<p>Direction:<%= @billboard.direction %></p>
+<p>Orientation:<%= @billboard.orientation %></p>
+<p>Unit Type:<%= @billboard.unit_type %></p>
+
+<%= link_to 'Edit Billboard', edit_billboard_path(@billboard), class: 'btn btn-warning' %><br>
+<%= link_to 'Delete Billboard', billboard_path(@billboard), method: :delete, data: {confirm: "Are you sure?" }, class: 'btn btn-danger' %><br>
+<%= link_to 'Back', root_path %>

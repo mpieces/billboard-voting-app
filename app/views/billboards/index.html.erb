@@ -5,6 +5,8 @@
 
 <div id="results"></div>
 
+<%= link_to 'Create New Billboard', new_billboard_path, class: 'btn btn-success btn-lg' %>
+<br>
 <table class="table table-bordered table-hover">
   <thead>
     <tr>
@@ -19,6 +21,7 @@
       <th scope="col">Direction</th>
       <th scope="col">Orientation</th>
       <th scope="col">Unit Type</th>
+      <th scope="col">Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -29,7 +32,7 @@
           <button class="voter downvote_button" data-direction="down" data-id="<%= billboard.id %>"><i class="fa fa-thumbs-down"></i></button>
         </td>
         <td class="total_votes"><%= billboard.vote_score %></td>
-        <td><%= link_to billboard.name, billboard_path(billboard), remote: true %></td>
+        <td><%= billboard.name %></td>
         <td><img class="img-thumbnail" src="<%= billboard.image %>"/></td>
         <td><%= billboard.lat %></td>
         <td><%= billboard.lon %></td>
@@ -38,6 +41,11 @@
         <td><%= billboard.direction %></td>
         <td><%= billboard.orientation %></td>
         <td><%= billboard.unit_type %></td>
+        <td>
+          <%= link_to 'Show', billboard_path(billboard), class: 'btn btn-info btn-block' %>
+          <%= link_to 'Edit', edit_billboard_path(billboard), class: 'btn btn-warning btn-block' %>
+          <%= link_to 'Delete', billboard_path(billboard), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-block' %>
+        </td>
       </tr>
     <% end %>
   </tbody>

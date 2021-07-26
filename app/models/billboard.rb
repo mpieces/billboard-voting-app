@@ -2,6 +2,7 @@ class Billboard < ApplicationRecord
   require 'csv'
   has_many :votes
 
+  validates :name, presence: true
   # returns all 30 billboards
   # scope :highest_vote, -> do
   #    order(votes_count: :desc) 
