@@ -43,10 +43,10 @@ class BillboardsController < ApplicationController
   end
 
   def create
+    p "In the create method"
     @billboard = Billboard.new(billboard_params)
-
     if @billboard.save
-      redirect_to root_path, notice: "Billboard was successfully created."
+      redirect_to @billboard, notice: "Billboard was successfully created."
     else
       render :new
     end

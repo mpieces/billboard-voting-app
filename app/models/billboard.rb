@@ -1,5 +1,5 @@
 class Billboard < ApplicationRecord
-  require 'csv'
+  # require 'csv'
   has_many :votes
 
   validates :name, presence: true
