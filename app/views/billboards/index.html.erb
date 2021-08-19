@@ -32,9 +32,24 @@
     <% @billboards.each do |billboard| %>
       <tr>
         <td>
-          <button class="voter upvote_button" data-direction="up" data-id="<%= billboard.id %>"><i class="fa fa-thumbs-up"></i></button>
+        <div data-controller="vote" data-vote-primary-class="btn-primary">
+        
+          <button class="btn" data-vote-target="thumbsUpButton" data-action="click->vote#upvote">CLICK ME</button>
+
+          <button
+            class="voter upvote_button" 
+            data-direction="up" 
+            data-id="<%= billboard.id %>">
+              <i 
+                # data-vote-target="thumbsUpButton"
+                class="fa fa-thumbs-up"></i>
+          </button>
+
           <button class="voter downvote_button" data-direction="down" data-id="<%= billboard.id %>"><i class="fa fa-thumbs-down"></i></button>
+
+          </div>
         </td>
+        
         <td class="total_votes"><%= billboard.vote_score %></td>
         <td><%= billboard.name %></td>
         <td><img class="img-thumbnail" src="<%= billboard.image %>"/></td>
@@ -56,36 +71,36 @@
 </table>
 
 
-<script type="text/javascript">
+# <script type="text/javascript">
  
-  $('button.voter').click(function () {
-    $(this).prop('disabled', true);
+#   $('button.voter').click(function () {
+#     $(this).prop('disabled', true);
     
-    var id = $(this).data('id');
-    var direction = $(this).data('direction')
-    if (direction === 'up') {
-      $(this).next().prop('disabled', false);   
-    } else {
-      $(this).prev().prop('disabled', false);   
-    }
-    var $total = $(this).parent().siblings(".total_votes")
-    console.log("BB ID: " + id)
-       $.ajax({
-          type: 'POST',
-          url: '/billboards/' + id + '/vote',
-          data: { direction: direction },
-          success: function (response) {
-            // console.log("Total : " + $total.text());
-            // console.log(response);
-            $total.text(response.vote_score)   
-            console.log("Vote Score : " + response.vote_score);  
+#     var id = $(this).data('id');
+#     var direction = $(this).data('direction')
+#     if (direction === 'up') {
+#       $(this).next().prop('disabled', false);   
+#     } else {
+#       $(this).prev().prop('disabled', false);   
+#     }
+#     var $total = $(this).parent().siblings(".total_votes")
+#     console.log("BB ID: " + id)
+#        $.ajax({
+#           type: 'POST',
+#           url: '/billboards/' + id + '/vote',
+#           data: { direction: direction },
+#           success: function (response) {
+#             // console.log("Total : " + $total.text());
+#             // console.log(response);
+#             $total.text(response.vote_score)   
+#             console.log("Vote Score : " + response.vote_score);  
              
-          }
-       })
-    })
+#           }
+#        })
+#     })
 
 
-</script>
+# </script>
 
 
 
