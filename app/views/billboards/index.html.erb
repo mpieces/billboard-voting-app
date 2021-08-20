@@ -32,20 +32,27 @@
     <% @billboards.each do |billboard| %>
       <tr>
         <td>
-        <div data-controller="vote" data-vote-primary-class="btn-primary">
-        
-          <button class="btn" data-vote-target="thumbsUpButton" data-action="click->vote#upvote">CLICK ME</button>
-
-          <button
-            class="voter upvote_button" 
-            data-direction="up" 
-            data-id="<%= billboard.id %>">
-              <i 
-                # data-vote-target="thumbsUpButton"
-                class="fa fa-thumbs-up"></i>
-          </button>
-
-          <button class="voter downvote_button" data-direction="down" data-id="<%= billboard.id %>"><i class="fa fa-thumbs-down"></i></button>
+          <div data-controller="vote" data-vote-disabled-class="fa-disabled"
+          data-vote-billboard-value="<%= billboard.id %>">
+            <button
+              data-action="click->vote#upvote"
+              class="voter upvote_button" 
+              data-direction="up">
+              
+                <i class="fa fa-thumbs-up"
+                data-vote-target="thumbsUpButton"
+                </i>
+            </button>
+            
+            <button 
+              data-action="click->vote#downvote"
+              class="voter downvote_button" 
+              data-direction="down" 
+              data-id="<%= billboard.id %>">
+                <i class="fa fa-thumbs-down"
+                data-vote-target="thumbsDownButton">
+                </i>
+            </button>
 
           </div>
         </td>
