@@ -5,9 +5,15 @@
 
 <div id="results"></div>
 
-<div data-controller="hello">
-  <h1 data-hello-target="output"></h1>
-</div>
+# <div data-controller="hello">
+#   <h1 data-hello-target="output"></h1>
+# </div>
+
+<a href="#"
+  data-reflex="click->Counter#increment"
+  data-step="1"
+  data-count="<%= @count.to_i %>"
+>Increment <%= @count.to_i %></a>
 
 <%= link_to 'Create New Billboard', new_billboard_path, class: 'btn btn-success btn-lg' %>
 <br>
