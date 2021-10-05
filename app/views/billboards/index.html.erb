@@ -37,11 +37,13 @@
             <button
               data-action="click->vote#upvote"
               class="voter upvote_button" 
-              data-direction="up">
+              data-direction="up"
+              data-id="<%= billboard.id %>">
               
                 <i class="fa fa-thumbs-up"
                 data-vote-target="thumbsUpButton"
                 </i>
+
             </button>
             
             <button 
@@ -49,9 +51,11 @@
               class="voter downvote_button" 
               data-direction="down" 
               data-id="<%= billboard.id %>">
+
                 <i class="fa fa-thumbs-down"
                 data-vote-target="thumbsDownButton">
                 </i>
+
             </button>
 
           </div>
