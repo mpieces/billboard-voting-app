@@ -14,6 +14,8 @@
   data-step="1"
   data-count="<%= @count.to_i %>"
 >Increment <%= @count.to_i %></a>
+<br>
+<br>
 
 <%= link_to 'Create New Billboard', new_billboard_path, class: 'btn btn-success btn-lg' %>
 <br>
@@ -41,7 +43,7 @@
           <div data-controller="vote" data-vote-disabled-class="fa-disabled"
           data-vote-billboard-value="<%= billboard.id %>">
             <button
-              data-action="click->vote#upvote"
+              data-reflex="click->Counter#increment"
               class="voter upvote_button" 
               data-direction="up"
               data-id="<%= billboard.id %>">
